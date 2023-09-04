@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import morgan from "morgan";
 
 const corsOptions = {
   origin: [
@@ -13,6 +14,8 @@ const corsOptions = {
 
 const app = express();
 app.disable("x-powered-by");
+
+app.use(morgan("dev"));
 
 app.use(cors(corsOptions));
 
