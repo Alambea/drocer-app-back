@@ -11,7 +11,7 @@ export interface RecordStructure {
   label: string;
   genres: string;
   cover: string;
-  user: Schema.Types.ObjectId;
+  user: string;
 }
 
 export interface UserStructure {
