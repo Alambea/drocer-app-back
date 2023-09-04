@@ -40,7 +40,7 @@ const recordSchema = new Schema<RecordStructure>({
     required: true,
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: User,
     required: true,
   },
