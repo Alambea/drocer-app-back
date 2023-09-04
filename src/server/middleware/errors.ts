@@ -1,5 +1,4 @@
 import "dotenv/config";
-
 import chalk from "chalk";
 import debugCreator from "debug";
 import { type NextFunction, type Request, type Response } from "express";
