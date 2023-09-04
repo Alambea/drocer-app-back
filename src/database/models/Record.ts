@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
-import { type RecordStructure } from "../../typers";
+import { type RecordStructure } from "../../types.js";
+import User from "./User.js";
 
 const recordSchema = new Schema<RecordStructure>({
   record: {
@@ -38,6 +39,13 @@ const recordSchema = new Schema<RecordStructure>({
     type: Number,
     required: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: User,
+    required: true,
+  },
 });
 
-export const Record = model("Record", recordSchema, "records");
+const Record = model("Record", recordSchema, "records");
+
+export default Record;
