@@ -6,7 +6,7 @@ import CustomError from "../../CustomError/CustomError.js";
 
 const debug = debugCreator("records:server:errors");
 
-export const endPointNotFound = (
+export const endpointNotFound = (
   _req: Request,
   _res: Response,
   next: NextFunction,
@@ -20,7 +20,7 @@ export const endPointNotFound = (
   next(customError);
 };
 
-export const generalErrorHandler = (
+export const generalError = (
   error: CustomError,
   _req: Request,
   res: Response,

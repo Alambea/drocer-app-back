@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../CustomError/CustomError";
-import { generalErrorHandler } from "../errors";
+import { generalError } from "../errors";
 
-describe("Given a generalError Handler middleware", () => {
+describe("Given a generalError handler", () => {
   const res: Partial<Response> = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
@@ -19,7 +19,7 @@ describe("Given a generalError Handler middleware", () => {
     test("Then it should call the received response's method status with 401", () => {
       const expectedStatusCode = 404;
 
-      generalErrorHandler(error, req as Request, res as Response, next);
+      generalError(error, req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
@@ -27,7 +27,7 @@ describe("Given a generalError Handler middleware", () => {
     test("Then it should call the received response's method json with the error 'Records not found'", () => {
       const expectedErrorMessage = { error: "Records not found" };
 
-      generalErrorHandler(error, req as Request, res as Response, next);
+      generalError(error, req as Request, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith(expectedErrorMessage);
     });
@@ -38,12 +38,7 @@ describe("Given a generalError Handler middleware", () => {
       const expectedStatusCode = 500;
       const error = new Error();
 
-      generalErrorHandler(
-        error as CustomError,
-        req as Request,
-        res as Response,
-        next,
-      );
+      generalError(error as CustomError, req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
