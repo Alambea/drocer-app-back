@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
-import { endPointNotFound } from "../errors";
+import { endpointNotFound } from "../errors.js";
 
-describe("Given an endPointNotFound middleware", () => {
+describe("Given an endpointNotFound middleware", () => {
   describe("When it receives a next function", () => {
     test("Then it should call the receives next function with a 'Endpoint not found' and 404", () => {
       const req: Partial<Request> = {};
@@ -14,7 +14,7 @@ describe("Given an endPointNotFound middleware", () => {
         "Endpoint not found",
       );
 
-      endPointNotFound(req as Request, res as Response, next);
+      endpointNotFound(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedCustomError);
     });
