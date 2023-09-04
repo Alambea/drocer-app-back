@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
@@ -5,10 +7,7 @@ import pingController from "./controllers/pingController.js";
 import { endPointNotFound, generalErrorHandler } from "./middleware/errors.js";
 
 const corsOptions = {
-  origin: [
-    "https://ana-lambea-final-project-20230.netlify.app/",
-    "http://localhost:4005",
-  ],
+  origin: process.env.ALLOW_ORIGIN_PROD,
   methods: "",
   preflightContinue: false,
   optionsSuccessStatus: 204,
