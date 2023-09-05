@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "5f2e0e83-e51b-4c67-a3c6-3b6e9e5704b5",
+		"name": "Records",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28798850"
+	},
+	"item": [
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_records_url}}/",
+					"host": [
+						"{{api_records_url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "https://ana-lambea-final-project-202307-bcn.onrender.com",
+			"type": "string"
+		}
+	]
+}
