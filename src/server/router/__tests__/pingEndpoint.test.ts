@@ -15,3 +15,17 @@ describe("Given an endpoint GET '/'", () => {
     });
   });
 });
+
+describe("Given a GET '/record' endpoint", () => {
+  describe("When it receives a request", () => {
+    test("Then it should should respond  with an status 404 and an error message 'Endpoint not found'", async () => {
+      const expectedStatus = 404;
+      const expectedMessage = "Endpoint not found";
+      const path = "/record";
+
+      const response = await request(app).get(path).expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error", expectedMessage);
+    });
+  });
+});
