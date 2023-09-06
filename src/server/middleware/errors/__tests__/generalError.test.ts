@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../../CustomError/CustomError";
+import CustomError from "../../../../CustomError/CustomError";
 import { generalError } from "../errors";
 
 describe("Given a generalError handler", () => {
@@ -33,7 +33,7 @@ describe("Given a generalError handler", () => {
     });
   });
 
-  describe("When it receives a response and an error without status code", () => {
+  describe("When it receives a response and an error without status code and without message", () => {
     test("Then it should call the received response's method status with 500", () => {
       const expectedStatusCode = 500;
       const error = new Error();
@@ -41,6 +41,15 @@ describe("Given a generalError handler", () => {
       generalError(error as CustomError, req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+
+    test("Then it should call the received response's method json with the error 'Internal server error'", () => {
+      const expectedMessage = { error: "Internal server error" };
+      const error = new Error();
+
+      generalError(error as CustomError, req as Request, res as Response, next);
+
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
     });
   });
 });
