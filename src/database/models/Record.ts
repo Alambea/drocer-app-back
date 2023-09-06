@@ -41,7 +41,7 @@ const recordSchema = new Schema<RecordStructure>({
   },
   user: {
     type: String,
-    ref: User,
+    ref: "User",
     required: true,
   },
 });

@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../../CustomError/CustomError";
+import CustomError from "../../../../CustomError/CustomError";
 import { generalError } from "../errors";
 
 describe("Given a generalError handler", () => {

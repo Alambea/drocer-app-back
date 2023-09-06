@@ -13,9 +13,9 @@ export const getRecordsController = async (
     res.status(200).json({ records });
   } catch (error: unknown) {
     const customError = new CustomError(
-      "Can't retrieve records",
-      404,
       (error as Error).message,
+      404,
+      "Can't retrieve records",
     );
     next(customError);
   }
