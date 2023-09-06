@@ -50,7 +50,9 @@ describe("Given a getRecordsController", () => {
       );
 
       Record.find = jest.fn().mockReturnValue({
-        exec: jest.fn().mockRejectedValue(expectedError),
+        limit: jest.fn().mockReturnValue({
+          exec: jest.fn().mockRejectedValue(expectedError),
+        }),
       });
 
       await getRecordsController(req as Request, res as Response, next);
