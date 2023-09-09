@@ -5,6 +5,7 @@ import morgan from "morgan";
 import pingController from "./controllers/pingController.js";
 import { endpointNotFound, generalError } from "./middleware/errors/errors.js";
 import { paths } from "./paths/paths.js";
+import auth from "./middleware/auth/auth.js";
 
 const corsOptions = {
   origin: process.env.ALLOW_ORIGIN_PROD!,
@@ -19,6 +20,8 @@ app.use(morgan("dev"));
 app.use(cors(corsOptions));
 
 app.get(paths.ping, pingController);
+
+app.use(auth);
 
 app.use(endpointNotFound);
 
