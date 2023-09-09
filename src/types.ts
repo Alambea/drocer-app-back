@@ -1,4 +1,4 @@
-import { type Schema } from "mongoose";
+import type mongoose from "mongoose";
 
 export interface RecordStructure {
   id: string;
@@ -15,7 +15,13 @@ export interface RecordStructure {
 }
 
 export interface UserStructure {
-  id: Schema.Types.ObjectId;
+  id: mongoose.Types.ObjectId;
+  authId: string;
+  name: string;
+}
+
+export interface MongooseUserStructure {
+  _id: mongoose.Types.ObjectId;
   authId: string;
   name: string;
 }

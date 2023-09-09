@@ -1,9 +1,9 @@
 import { type NextFunction, type Response } from "express";
-import CustomError from "../../CustomError/CustomError.js";
+import CustomError from "../../../CustomError/CustomError.js";
 import admin from "firebase-admin";
-import { firebaseApp } from "../../firebase.js";
-import { type AuthRequest } from "../types";
-import User from "../../database/models/User.js";
+import { firebaseApp } from "../../../firebase.js";
+import { type AuthRequest } from "../../types.js";
+import User from "../../../database/models/User.js";
 
 const auth = async (req: AuthRequest, _res: Response, next: NextFunction) => {
   try {
