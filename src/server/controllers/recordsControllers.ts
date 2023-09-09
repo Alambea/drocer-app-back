@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../CustomError/CustomError";
-import Record from "../../database/models/Record";
+import CustomError from "../../CustomError/CustomError.js";
+import Record from "../../database/models/Record.js";
 
 export const getRecordsController = async (
   _req: Request,
