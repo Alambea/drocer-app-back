@@ -1,4 +1,5 @@
 export interface PathsStructure {
-  ping: string;
+  getRecords: string;
+  slash: string;
   nonExistent: string;
 }

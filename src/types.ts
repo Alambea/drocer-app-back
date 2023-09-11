@@ -1,7 +1,5 @@
-import type mongoose from "mongoose";
-
 export interface RecordStructure {
-  id: string;
+  _id: string;
   record: string;
   artist: string;
   releaseDate: number;
@@ -15,13 +13,13 @@ export interface RecordStructure {
 }
 
 export interface UserStructure {
-  id: mongoose.Types.ObjectId;
+  _id: string;
   authId: string;
   name: string;
 }
 
 export interface MongooseUserStructure {
-  _id: mongoose.Types.ObjectId;
+  _id: string;
   authId: string;
   name: string;
 }
