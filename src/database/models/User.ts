@@ -3,14 +3,12 @@ import { type UserStructure } from "../../types.js";
 
 const UserSchema = new Schema<UserStructure>({
   authId: {
-    authId: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
   },
 });
 

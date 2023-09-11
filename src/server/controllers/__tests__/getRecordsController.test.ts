@@ -4,6 +4,7 @@ import { type NextFunction } from "connect";
 import Record from "../../../database/models/Record";
 import { recordsMock } from "../../../mocks/recordsMock";
 import CustomError from "../../../CustomError/CustomError";
+import { type AuthRequest } from "../../types";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -27,7 +28,7 @@ describe("Given a getRecordsController", () => {
     test("Then it should call the received response's method status with 200", async () => {
       const expectedStatusCode = 200;
 
-      await getRecordsController(req as Request, res as Response, next);
+      await getRecordsController(req as AuthRequest, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
@@ -35,7 +36,7 @@ describe("Given a getRecordsController", () => {
     test("Then it should call its method json with the records 'LP1' and 'ISON'", async () => {
       const expectedRecords = { records: recordsMock };
 
-      await getRecordsController(req as Request, res as Response, next);
+      await getRecordsController(req as AuthRequest, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith(expectedRecords);
     });
@@ -55,7 +56,7 @@ describe("Given a getRecordsController", () => {
         }),
       });
 
-      await getRecordsController(req as Request, res as Response, next);
+      await getRecordsController(req as AuthRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

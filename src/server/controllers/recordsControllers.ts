@@ -1,14 +1,15 @@
-import { type NextFunction, type Request, type Response } from "express";
+import { type NextFunction, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import Record from "../../database/models/Record.js";
+import { type AuthRequest } from "../types.js";
 
 export const getRecordsController = async (
-  _req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const records = await Record.find().limit(10).exec();
+    const records = await Record.find({ user: req.userId }).limit(10).exec();
 
     res.status(200).json({ records });
   } catch (error: unknown) {

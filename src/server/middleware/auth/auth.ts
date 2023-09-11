@@ -4,6 +4,7 @@ import admin from "firebase-admin";
 import { firebaseApp } from "../../../firebase.js";
 import { type AuthRequest } from "../../types.js";
 import User from "../../../database/models/User.js";
+import { type UserStructure } from "../../../types.js";
 
 const auth = async (req: AuthRequest, _res: Response, next: NextFunction) => {
   try {
@@ -22,7 +23,7 @@ const auth = async (req: AuthRequest, _res: Response, next: NextFunction) => {
 
     const userData = await admin.auth(firebaseApp).verifyIdToken(token);
     const authId = userData.uid;
-    const user = await User.findOne({ authId });
+    const user = await User.findOne<UserStructure>({ authId });
 
     if (!user) {
       const customError = new CustomError(
