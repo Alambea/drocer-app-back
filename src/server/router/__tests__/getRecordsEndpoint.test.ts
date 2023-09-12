@@ -48,6 +48,7 @@ describe("Given a GET '/records' endpoint", () => {
         .expect(expectedStatusCode);
 
       const responseBody = response.body as { records: RecordStructure[] };
+
       responseBody.records.forEach((record, recordPosition) => {
         expect(responseBody.records[recordPosition]).toHaveProperty(
           "record",

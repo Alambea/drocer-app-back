@@ -20,6 +20,12 @@ jobs:
         env:
           PORT: ${{ secrets.PORT }}
           DEBUG: ${{ secrets.DEBUG }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          ALLOW_ORIGIN_PROD: ${{ secrets.ALLOW_ORIGIN_PROD }}
+          ALLOW_ORIGIN_LOCAL: ${{ secrets.ALLOW_ORIGIN_LOCAL }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

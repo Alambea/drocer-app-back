@@ -9,7 +9,7 @@ import auth from "./middleware/auth/auth.js";
 import recordsRouter from "./router/recordsRouter.js";
 
 const corsOptions = {
-  origin: process.env.ALLOW_ORIGIN_PROD!,
+  origin: [process.env.ALLOW_ORIGIN_PROD!, process.env.ALLOW_ORIGIN_LOCAL!],
 };
 
 const app = express();
