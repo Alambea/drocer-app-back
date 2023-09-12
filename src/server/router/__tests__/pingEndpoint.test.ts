@@ -1,11 +1,11 @@
 import request from "supertest";
 import admin from "firebase-admin";
-import app from "../..";
-import { paths } from "../../paths/paths";
-import { MongoMemoryServer } from "mongodb-memory-server";
-import connectToDatabase from "../../../database/connectToDatabase";
 import mongoose from "mongoose";
 import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import app from "../..";
+import { paths } from "../../paths/paths";
+import connectToDatabase from "../../../database/connectToDatabase";
 import User from "../../../database/models/User";
 
 jest.mock("firebase-admin");

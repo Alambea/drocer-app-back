@@ -18,6 +18,7 @@ export const getRecordsController = async (
       404,
       "Can't retrieve records",
     );
+
     next(customError);
   }
 };
