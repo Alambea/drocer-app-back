@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
-import { getRecordsController } from "../recordsControllers";
 import { type NextFunction } from "connect";
+import { getRecordsController } from "../recordsControllers";
 import Record from "../../../database/models/Record";
 import { recordsMock } from "../../../mocks/recordsMock";
 import CustomError from "../../../CustomError/CustomError";
