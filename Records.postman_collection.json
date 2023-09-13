@@ -39,6 +39,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "deleteById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE5MGFkMTE4YTk0MGFkYzlmMmY1Mzc2YjM1MjkyZmVkZThjMmQwZWUiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQW5hIExhbWJlYSIsInBpY3R1cmUiOiJodHRwczovL2F2YXRhcnMuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3UvMzk0MDUxMzY_dj00IiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2Ryb2Nlci1hcHAiLCJhdWQiOiJkcm9jZXItYXBwIiwiYXV0aF90aW1lIjoxNjk0NjIxMjI2LCJ1c2VyX2lkIjoiU0VlYVJCRTZvdU1OcFdEQnk0RlFaU01acE5CMiIsInN1YiI6IlNFZWFSQkU2b3VNTnBXREJ5NEZRWlNNWnBOQjIiLCJpYXQiOjE2OTQ2MjEyMjYsImV4cCI6MTY5NDYyNDgyNiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnaXRodWIuY29tIjpbIjM5NDA1MTM2Il19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ2l0aHViLmNvbSJ9fQ.EhYuw6DFdvoNhL06x8pnJP2I6V-HP4jmhIKEIjQTSZucLNtz9v8hbYxSv0nhXiE5SlwUSdPWhmcyX0rkPXEEvoyVHxCyDU_y-cHxH0PLe3x4MHcagcuI8Zh4xuZJZ0E6L0xmkE0cMH3Cwf8fbKCcPQqAR9k9zksRINC6iUdCj8J6SX2Z626-AIdqhoxCKfm8A0jcb7IEdPCp4bT4qOZ6CNlGTjLC4F-cQ84SJewr1LbrAXqF5wsuBVsZ5q62eZE7NPA9aFEviLXzAzrQmAYPZhFEbiom6i-IlT7v2tsKjIk_-BcqTUe5Q3S2rCcmRRbNBIFuPJLeuC3b5mT6Pc2hlw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_records_url}}/records/",
+					"host": [
+						"{{api_records_url}}"
+					],
+					"path": [
+						"records",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

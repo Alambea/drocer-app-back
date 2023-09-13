@@ -4,10 +4,9 @@ import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
-import { recordsMock } from "../../../mocks/recordsMock";
+import { recordToDeleteIdMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
-import { type RecordStructure } from "../../../types";
 import User from "../../../database/models/User";
 import { authIdMock, userMock } from "../../../mocks/usersMock";
 import app from "../..";
@@ -33,28 +32,23 @@ admin.auth = jest.fn().mockReturnValue({
   verifyIdToken: jest.fn().mockResolvedValue(token),
 });
 
-describe("Given a GET '/records' endpoint", () => {
-  describe("When it receives a request", () => {
-    test("Then it should respond with a status 200 and records 'LP1' and 'In Rainbows'", async () => {
+describe("Given a DELETE '/records:id' endpoint", () => {
+  describe("When it receives a request with the id to delete", () => {
+    test("Then it should respond with a status 200 and the message 'Record deleted successfully'", async () => {
       const expectedStatusCode = 200;
-      const recordsPath = paths.getRecords;
+      const expectedMessage = "Record deleted successfully";
 
       await Record.create(recordsMock);
       await User.create(userMock);
 
       const response = await request(app)
-        .get(recordsPath)
+        .delete(`${paths.getRecords}/${recordToDeleteIdMock}`)
         .set("Authorization", "Bearer token")
         .expect(expectedStatusCode);
 
-      const responseBody = response.body as { records: RecordStructure[] };
+      const responseBody = response.body as { message: string };
 
-      responseBody.records.forEach((record, recordPosition) => {
-        expect(responseBody.records[recordPosition]).toHaveProperty(
-          "record",
-          record.record,
-        );
-      });
+      expect(responseBody).toHaveProperty("message", expectedMessage);
     });
   });
 });
