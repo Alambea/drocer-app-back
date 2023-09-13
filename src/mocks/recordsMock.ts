@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { type RecordStructure } from "../types.js";
 import { userIdMock } from "./usersMock.js";
 
+export const recordToDeleteIdMock: string =
+  new mongoose.Types.ObjectId().toString();
 export const recordsMock: RecordStructure[] = [
   {
     _id: new mongoose.Types.ObjectId().toString(),
@@ -17,7 +19,7 @@ export const recordsMock: RecordStructure[] = [
     user: userIdMock,
   },
   {
-    _id: new mongoose.Types.ObjectId().toString(),
+    _id: recordToDeleteIdMock,
     record: "In Rainbows",
     artist: "Radiohead",
     cover: "http://example.com/image.png",
