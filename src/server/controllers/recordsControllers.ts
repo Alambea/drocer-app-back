@@ -22,3 +22,25 @@ export const getRecordsController = async (
     next(customError);
   }
 };
+
+export const deleteByIdController = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+
+    await Record.findByIdAndDelete(id).exec();
+
+    res.status(200).json({ message: "Record deleted successfully" });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Failed to delete record",
+    );
+
+    next(customError);
+  }
+};
