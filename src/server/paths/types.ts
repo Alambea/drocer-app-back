@@ -1,5 +1,5 @@
 export interface PathsStructure {
-  getRecords: string;
+  records: string;
   root: string;
   nonExistent: string;
 }
