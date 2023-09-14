@@ -26,7 +26,7 @@ app.get(paths.root, pingController);
 
 app.use(auth);
 
-app.use(paths.getRecords, recordsRouter);
+app.use(paths.records, recordsRouter);
 
 app.use(endpointNotFound);
 

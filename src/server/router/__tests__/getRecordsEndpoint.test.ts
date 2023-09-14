@@ -37,7 +37,7 @@ describe("Given a GET '/records' endpoint", () => {
   describe("When it receives a request", () => {
     test("Then it should respond with a status 200 and records 'LP1' and 'In Rainbows'", async () => {
       const expectedStatusCode = 200;
-      const recordsPath = paths.getRecords;
+      const recordsPath = paths.records;
 
       await Record.create(recordsMock);
       await User.create(userMock);

@@ -42,7 +42,7 @@ describe("Given a DELETE '/records:id' endpoint", () => {
       await User.create(userMock);
 
       const response = await request(app)
-        .delete(`${paths.getRecords}/${recordToDeleteIdMock}`)
+        .delete(`${paths.records}/${recordToDeleteIdMock}`)
         .set("Authorization", "Bearer token")
         .expect(expectedStatusCode);
 

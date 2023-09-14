@@ -1,7 +1,7 @@
 import { type PathsStructure } from "./types";
 
 export const paths: PathsStructure = {
-  getRecords: "/records",
+  records: "/records",
   root: "/",
   nonExistent: "/record",
 };
