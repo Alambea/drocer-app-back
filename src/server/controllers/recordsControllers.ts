@@ -44,3 +44,25 @@ export const deleteByIdController = async (
     next(customError);
   }
 };
+
+export const addRecordController = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const record = req.body;
+    const { userId } = req;
+
+    const newRecord = await Record.create({ ...record, user: userId });
+    res.status(201).json({ record: newRecord });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      404,
+      "Can't create the record",
+    );
+
+    next(customError);
+  }
+};

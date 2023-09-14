@@ -34,7 +34,7 @@ describe("Given an endpoint GET '/'", () => {
     test("Then it should should respond  with an status 200 and a message 'Pong 🏓'", async () => {
       const expectedMessage = "Pong 🏓";
       const expectedStatusCode = 200;
-      const path = paths.slash;
+      const path = paths.root;
 
       const response = await request(app).get(path).expect(expectedStatusCode);
 
