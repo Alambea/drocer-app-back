@@ -16,11 +16,13 @@ const app = express();
 
 app.disable("x-powered-by");
 
+app.use(express.json());
+
 app.use(morgan("dev"));
 
 app.use(cors(corsOptions));
 
-app.get(paths.slash, pingController);
+app.get(paths.root, pingController);
 
 app.use(auth);
 
