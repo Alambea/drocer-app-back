@@ -76,7 +76,8 @@ export const getRecordByIdController = async (
     const { id } = req.params;
 
     const record = await Record.findById(id);
-    res.status(200).json(record);
+
+    res.status(200).json({ record });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,

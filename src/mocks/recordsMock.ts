@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import { type RecordStructure } from "../types.js";
+import {
+  type MongooseRecordStructure,
+  type RecordStructure,
+} from "../types.js";
 import { userIdMock } from "./usersMock.js";
 
 export const recordToDeleteIdMock: string =
@@ -51,3 +54,18 @@ export const recordsMock: RecordStructure[] = [
     user: new mongoose.Types.ObjectId().toString(),
   },
 ];
+
+export const expectedRecordByIdMock: MongooseRecordStructure = {
+  _id: recordtoGetIdMock,
+  record: "LP1",
+  artist: "FKA Twigs",
+  cover: "http://example.com/image.png",
+  description: "August",
+  genres: "Avant-pop, electronic, art pop R&B, trip hop",
+  label: "Young Turks",
+  length: "40:46",
+  rating: 4,
+  releaseDate: 2014,
+  user: userIdMock,
+  __v: 0,
+};

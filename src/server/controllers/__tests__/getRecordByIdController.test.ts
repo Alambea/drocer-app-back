@@ -20,7 +20,7 @@ const next: NextFunction = jest.fn();
 
 describe("Given an getRecordByIdController controller", () => {
   describe(`When it receives a request with id ${recordtoGetIdMock} and a next function`, () => {
-    Record.findById = jest.fn().mockReturnValue({ record: recordsMock[0] });
+    Record.findById = jest.fn().mockReturnValue(recordsMock[0]);
 
     test("Then it should call the received response's method status with 200", async () => {
       const expectedStatusCode = 200;
