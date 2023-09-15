@@ -66,3 +66,24 @@ export const addRecordController = async (
     next(customError);
   }
 };
+
+export const getRecordByIdController = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+
+    const record = await Record.findById(id);
+    res.status(200).json(record);
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Failed to retrieve record",
+    );
+
+    next(customError);
+  }
+};

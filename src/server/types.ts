@@ -9,12 +9,3 @@ export interface AuthRequest
   > {
   userId?: string;
 }
-
-export interface AuthRequest
-  extends Request<
-    Record<string, unknown>,
-    Record<string, unknown>,
-    Partial<Omit<RecordStructure, "_id" | "user">>
-  > {
-  userId?: string;
-}

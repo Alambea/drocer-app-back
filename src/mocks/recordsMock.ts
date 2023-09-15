@@ -18,9 +18,12 @@ export const recordPostMock: Partial<RecordStructure> = {
   releaseDate: 1998,
 };
 
+export const recordtoGetIdMock: string =
+  new mongoose.Types.ObjectId().toString();
+
 export const recordsMock: RecordStructure[] = [
   {
-    _id: new mongoose.Types.ObjectId().toString(),
+    _id: recordtoGetIdMock,
     record: "LP1",
     artist: "FKA Twigs",
     cover: "http://example.com/image.png",
