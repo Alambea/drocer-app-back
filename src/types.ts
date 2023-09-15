@@ -23,3 +23,7 @@ export interface MongooseUserStructure {
   authId: string;
   name: string;
 }
+
+export interface MongooseRecordStructure extends RecordStructure {
+  __v: number;
+}
