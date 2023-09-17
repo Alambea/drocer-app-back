@@ -1,5 +1,5 @@
 import { type Response, type NextFunction } from "express";
-import { recordsMock, recordtoGetIdMock } from "../../../mocks/recordsMock";
+import { recordsMock, expectedRecordIdMock } from "../../../mocks/recordsMock";
 import Record from "../../../database/models/Record";
 import { getRecordByIdController } from "../recordsControllers";
 import { type AuthRequest } from "../../types";
@@ -10,7 +10,7 @@ beforeEach(() => {
 });
 
 const req: Partial<AuthRequest> = {
-  params: { id: recordtoGetIdMock },
+  params: { id: expectedRecordIdMock },
 };
 const res: Partial<Response> = {
   status: jest.fn().mockReturnThis(),
@@ -19,7 +19,7 @@ const res: Partial<Response> = {
 const next: NextFunction = jest.fn();
 
 describe("Given an getRecordByIdController controller", () => {
-  describe(`When it receives a request with id ${recordtoGetIdMock} and a next function`, () => {
+  describe(`When it receives a request with id ${expectedRecordIdMock} and a next function`, () => {
     Record.findById = jest.fn().mockReturnValue(recordsMock[0]);
 
     test("Then it should call the received response's method status with 200", async () => {
