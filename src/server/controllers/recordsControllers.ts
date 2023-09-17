@@ -88,3 +88,26 @@ export const getRecordByIdController = async (
     next(customError);
   }
 };
+
+export const modifyRecordController = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const rating = req.body;
+
+    const record = await Record.findByIdAndUpdate(id, rating);
+
+    res.status(200).json({ record });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      304,
+      "Failed to modify record",
+    );
+
+    next(customError);
+  }
+};
