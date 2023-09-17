@@ -24,7 +24,7 @@
 			"response": []
 		},
 		{
-			"name": "get_records",
+			"name": "getRecords",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -41,7 +41,7 @@
 			"response": []
 		},
 		{
-			"name": "deleteById",
+			"name": "deleteRecordById",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -91,6 +91,50 @@
 					]
 				},
 				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_records_url}}/records",
+					"host": [
+						"{{api_records_url}}"
+					],
+					"path": [
+						"records"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecordById",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "modifyRecord",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImFhMDhlN2M3ODNkYjhjOGFjNGNhNzJhZjdmOWRkN2JiMzk4ZjE2ZGMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQW5hIExhbWJlYSIsInBpY3R1cmUiOiJodHRwczovL2F2YXRhcnMuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3UvMzk0MDUxMzY_dj00IiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2Ryb2Nlci1hcHAiLCJhdWQiOiJkcm9jZXItYXBwIiwiYXV0aF90aW1lIjoxNjk0OTY3MzExLCJ1c2VyX2lkIjoiU0VlYVJCRTZvdU1OcFdEQnk0RlFaU01acE5CMiIsInN1YiI6IlNFZWFSQkU2b3VNTnBXREJ5NEZRWlNNWnBOQjIiLCJpYXQiOjE2OTQ5NjczMTEsImV4cCI6MTY5NDk3MDkxMSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnaXRodWIuY29tIjpbIjM5NDA1MTM2Il19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ2l0aHViLmNvbSJ9fQ.gvviZmwzrdmt14_iwa77dSZmdoPyPNl2YW61xOfTQvuwnxupcmXTOgZnEsgLO03cpBbS6PIb9kSItIVhAxnNfMSxgw9NQDbqbLAQi-gXVnGwCiRYU6qek6UKNHYAnTwmf04VPh8S8xBZ6dF3Sb87o2hxcYqTB1klaejL8IRXAzc2ratiGgMH6eYonvH3RXulkcej5Kj_mUX8aHs6T_rBGFs8OBOg2TiJPzQXz7354V5Vx09kvJuKHiGM_N-UZLgFUF3f79__ZS7YSIkdMplFObRnIwP33QHiC0EYEeNYixJjhOPVYZyuxM7_-snfsQLiNX3k2mNHk2WbOVxEkNIDhg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",

@@ -7,10 +7,10 @@ import Record from "../../../database/models/Record";
 import { expectedRecordMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
-import { type MongooseRecordStructure } from "../../../types";
 import User from "../../../database/models/User";
 import { authIdMock, userMock } from "../../../mocks/usersMock";
 import app from "../..";
+import { type RecordStructure } from "../../../types";
 
 jest.mock("firebase-admin");
 
@@ -33,23 +33,25 @@ admin.auth = jest.fn().mockReturnValue({
   verifyIdToken: jest.fn().mockResolvedValue(token),
 });
 
-describe("Given a GET '/records' endpoint", () => {
-  describe("When it receives a request", () => {
-    test("Then it should respond with a status 200 and records 'LP1' and 'In Rainbows'", async () => {
+describe("Given a PATCH '/records:id' endpoint", () => {
+  describe(`When it receives a request with the id to update ${expectedRecordMock._id} and a value to update rating: 5`, () => {
+    test("Then it should respond with a status 200 and the record 'LP1' with the rating propery 5", async () => {
       const expectedStatusCode = 200;
-      const recordsPath = `${paths.records}/${recordsMock[0]._id}`;
+      const path = `${paths.records}/${expectedRecordMock._id}`;
+      const update: Partial<RecordStructure> = { rating: 5 };
 
       await Record.create(recordsMock);
       await User.create(userMock);
 
       const response = await request(app)
-        .get(recordsPath)
+        .patch(path)
         .set("Authorization", "Bearer token")
+        .send(update)
         .expect(expectedStatusCode);
 
-      const responseBody = response.body as { record: MongooseRecordStructure };
+      const responseBody = response.body as { record: RecordStructure };
 
-      expect(responseBody.record).toStrictEqual(expectedRecordMock);
+      expect(responseBody.record).toHaveProperty("rating", 5);
     });
   });
 });

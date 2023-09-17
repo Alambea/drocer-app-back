@@ -20,12 +20,12 @@ export const recordPostMock: Partial<RecordStructure> = {
   releaseDate: 1998,
 };
 
-export const recordtoGetIdMock: string =
+export const expectedRecordIdMock: string =
   new mongoose.Types.ObjectId().toString();
 
 export const recordsMock: RecordStructure[] = [
   {
-    _id: recordtoGetIdMock,
+    _id: expectedRecordIdMock,
     record: "LP1",
     artist: "FKA Twigs",
     cover: "http://example.com/image.png",
@@ -54,8 +54,8 @@ export const recordsMock: RecordStructure[] = [
   },
 ];
 
-export const expectedRecordByIdMock: MongooseRecordStructure = {
-  _id: recordtoGetIdMock,
+export const expectedRecordMock: MongooseRecordStructure = {
+  _id: expectedRecordIdMock,
   record: "LP1",
   artist: "FKA Twigs",
   cover: "http://example.com/image.png",

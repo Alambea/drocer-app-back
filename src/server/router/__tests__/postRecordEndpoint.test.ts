@@ -39,7 +39,7 @@ describe("Given a POST '/records' endpoint", () => {
       await Record.create();
     });
 
-    test.only("Then it should respond with a status 201 and a record 'Mezzanine'", async () => {
+    test("Then it should respond with a status 201 and a record 'Mezzanine'", async () => {
       const expectedStatusCode = 201;
       const postMockRecord = recordPostMock;
       const recordsPath = paths.records;
