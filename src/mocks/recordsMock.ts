@@ -5,8 +5,7 @@ import {
 } from "../types.js";
 import { userIdMock } from "./usersMock.js";
 
-export const recordToDeleteIdMock: string =
-  new mongoose.Types.ObjectId().toString();
+export const recordIdMock: string = new mongoose.Types.ObjectId().toString();
 
 export const recordPostMock: Partial<RecordStructure> = {
   record: "Mezzanine",
@@ -39,7 +38,7 @@ export const recordsMock: RecordStructure[] = [
     user: userIdMock,
   },
   {
-    _id: recordToDeleteIdMock,
+    _id: recordIdMock,
     record: "In Rainbows",
     artist: "Radiohead",
     cover: "http://example.com/image.png",
