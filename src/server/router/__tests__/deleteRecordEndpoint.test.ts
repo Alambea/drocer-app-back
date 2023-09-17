@@ -4,7 +4,7 @@ import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
-import { recordToDeleteIdMock, recordsMock } from "../../../mocks/recordsMock";
+import { recordIdMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
 import User from "../../../database/models/User";
@@ -42,7 +42,7 @@ describe("Given a DELETE '/records:id' endpoint", () => {
       await User.create(userMock);
 
       const response = await request(app)
-        .delete(`${paths.records}/${recordToDeleteIdMock}`)
+        .delete(`${paths.records}/${recordIdMock}`)
         .set("Authorization", "Bearer token")
         .expect(expectedStatusCode);
 

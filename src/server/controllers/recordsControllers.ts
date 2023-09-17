@@ -98,7 +98,7 @@ export const modifyRecordController = async (
     const { id } = req.params;
     const rating = req.body;
 
-    const record = await Record.findByIdAndUpdate(id, rating);
+    const record = await Record.findByIdAndUpdate(id, rating).exec();
 
     res.status(200).json({ record });
   } catch (error: unknown) {

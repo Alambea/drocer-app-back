@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { recordToDeleteIdMock } from "../../../mocks/recordsMock";
+import { recordIdMock } from "../../../mocks/recordsMock";
 import Record from "../../../database/models/Record";
 import { deleteByIdController } from "../recordsControllers";
 import { type AuthRequest } from "../../types";
@@ -11,7 +11,7 @@ beforeEach(() => {
 
 const req: Partial<Request> = {
   params: {
-    id: recordToDeleteIdMock,
+    id: recordIdMock,
   },
 };
 const res: Partial<Response> = {
@@ -21,7 +21,7 @@ const res: Partial<Response> = {
 const next: NextFunction = jest.fn();
 
 describe("Given a deleteByIdController", () => {
-  describe(`When it receives a request with id ${recordToDeleteIdMock} and a next function`, () => {
+  describe(`When it receives a request with id ${recordIdMock} and a next function`, () => {
     test("Then it should call the received response's method status with 200", async () => {
       const expectedStatusCode = 200;
       Record.findByIdAndDelete = jest.fn().mockReturnValue({
