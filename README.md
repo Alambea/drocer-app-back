@@ -276,3 +276,7 @@ Express.js as a framework for node.js to organize routers, middlewares, https me
 ## Testing
 
 In this API i used Jest for unit testing and Supertest for integration endpoint testing.
+Here some Sonar metrics:
+
+![Drocer Back coverage](https://media.discordapp.net/attachments/1145135177534812231/1156606037093261442/Captura_de_pantalla_2023-09-27_162411.png)
+![Drocer Back coverage](https://media.discordapp.net/attachments/1145135177534812231/1156606037391065201/Captura_de_pantalla_2023-09-27_162424.png)
