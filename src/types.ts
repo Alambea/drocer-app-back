@@ -1,3 +1,5 @@
+import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
+
 export interface RecordStructure {
   _id: string;
   record: string;
@@ -26,4 +28,8 @@ export interface MongooseUserStructure {
 
 export interface MongooseRecordStructure extends RecordStructure {
   __v: number;
+}
+
+export interface UserData extends Partial<DecodedIdToken> {
+  name?: string;
 }
