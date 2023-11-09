@@ -59,7 +59,6 @@ describe("Given an auth middleware", () => {
         401,
         "Invalid Token",
       );
-
       const req: Partial<AuthRequest> = {
         header: jest.fn().mockReturnValue("Bearer token"),
       };
@@ -67,35 +66,26 @@ describe("Given an auth middleware", () => {
         verifyIdToken: jest.fn().mockRejectedValue(expectedError),
       });
       const next: NextFunction = jest.fn();
-
       await auth(req as AuthRequest, res as Response, next);
-
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 
   describe("When it receives a next function and a request with an valid token but the user doesn't exist", () => {
-    test("Then it should call the received next function with the error 'User not found'", async () => {
-      const expectedError = new CustomError(
-        "User not found",
-        401,
-        "User not found",
-      );
+    test("Then it should call the received next function", async () => {
       const req: Partial<AuthRequest> = {
         header: jest.fn().mockReturnValue("Bearer token"),
       };
       const next: NextFunction = jest.fn();
-
+      const user: Partial<MongooseUserStructure> = { _id: userIdMock };
       const token: Partial<DecodedIdToken> = {};
-
       admin.auth = jest.fn().mockReturnValue({
         verifyIdToken: jest.fn().mockResolvedValue(token),
       });
       User.findOne = jest.fn().mockResolvedValue(null);
-
+      User.create = jest.fn().mockResolvedValue(user);
       await auth(req as AuthRequest, res as Response, next);
-
-      expect(next).toHaveBeenCalledWith(expectedError);
+      expect(next).toHaveBeenCalled();
     });
   });
 });
