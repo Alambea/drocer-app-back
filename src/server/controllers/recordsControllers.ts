@@ -9,7 +9,11 @@ export const getRecordsController = async (
   next: NextFunction,
 ) => {
   try {
-    const records = await Record.find({ user: req.userId }).limit(10).exec();
+    const records = await Record.find({ user: req.userId }, null, {
+      sort: { _id: -1 },
+    })
+      .limit(10)
+      .exec();
 
     res.status(200).json({ records });
   } catch (error: unknown) {
