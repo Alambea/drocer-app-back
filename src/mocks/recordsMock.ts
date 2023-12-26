@@ -68,3 +68,18 @@ export const expectedRecordMock: MongooseRecordStructure = {
   user: userIdMock,
   __v: 0,
 };
+
+export const modifiedRecordMock: MongooseRecordStructure = {
+  _id: expectedRecordIdMock,
+  record: "LP1",
+  artist: "FKA Twigs",
+  cover: "http://example.com/image.png",
+  description: "New description here",
+  genres: "Avant-pop, electronic, art pop R&B, trip hop, cool stuff",
+  label: "Young Turks",
+  length: "40:46",
+  rating: 4,
+  releaseDate: 2015,
+  user: userIdMock,
+  __v: 0,
+};
