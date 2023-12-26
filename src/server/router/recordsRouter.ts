@@ -15,5 +15,6 @@ recordsRouter.delete(`${paths.root}:id`, deleteByIdController);
 recordsRouter.post(`${paths.root}`, addRecordController);
 recordsRouter.get(`${paths.root}:id`, getRecordByIdController);
 recordsRouter.patch(`${paths.root}:id`, modifyRecordController);
+recordsRouter.put(`${paths.root}:id`, modifyRecordController);
 
 export default recordsRouter;
