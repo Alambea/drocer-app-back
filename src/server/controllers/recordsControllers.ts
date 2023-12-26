@@ -32,9 +32,9 @@ export const deleteByIdController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     await Record.findByIdAndDelete(id).exec();
 
     res.status(200).json({ message: "Record deleted successfully" });
@@ -54,11 +54,12 @@ export const addRecordController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const record = req.body;
-    const { userId } = req;
+  const record = req.body;
+  const { userId } = req;
 
+  try {
     const newRecord = await Record.create({ ...record, user: userId });
+
     res.status(201).json({ record: newRecord });
   } catch (error: unknown) {
     const customError = new CustomError(
@@ -76,9 +77,9 @@ export const getRecordByIdController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
+  try {
     const record = await Record.findById(id);
 
     res.status(200).json({ record });
@@ -98,15 +99,15 @@ export const modifyRecordController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  try {
-    const { id } = req.params;
-    const rating = req.body;
+  const { id } = req.params;
+  const newRecordData = req.body;
 
-    const record = await Record.findByIdAndUpdate(id, rating, {
+  try {
+    const updatedRecord = await Record.findByIdAndUpdate(id, newRecordData, {
       returnDocument: "after",
     }).exec();
 
-    res.status(200).json({ record });
+    res.status(200).json({ record: updatedRecord });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,

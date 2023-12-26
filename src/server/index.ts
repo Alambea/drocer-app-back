@@ -1,5 +1,5 @@
 import "dotenv/config";
-import cors from "cors";
+import cors, { type CorsOptions } from "cors";
 import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/pingController.js";
@@ -8,7 +8,7 @@ import { paths } from "./paths/paths.js";
 import auth from "./middleware/auth/auth.js";
 import recordsRouter from "./router/recordsRouter.js";
 
-const corsOptions = {
+const corsOptions: CorsOptions = {
   origin: [process.env.ALLOW_ORIGIN_PROD!, process.env.ALLOW_ORIGIN_LOCAL!],
 };
 
