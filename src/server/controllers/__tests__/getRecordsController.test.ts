@@ -20,8 +20,10 @@ const next: NextFunction = jest.fn();
 describe("Given a getRecordsController", () => {
   describe("When it receives a response ", () => {
     Record.find = jest.fn().mockReturnValue({
-      limit: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(recordsMock),
+      select: jest.fn().mockReturnValue({
+        limit: jest.fn().mockReturnValue({
+          exec: jest.fn().mockResolvedValue(recordsMock),
+        }),
       }),
     });
 
@@ -51,8 +53,10 @@ describe("Given a getRecordsController", () => {
       );
 
       Record.find = jest.fn().mockReturnValue({
-        limit: jest.fn().mockReturnValue({
-          exec: jest.fn().mockRejectedValue(expectedError),
+        select: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockRejectedValue(expectedError),
+          }),
         }),
       });
 

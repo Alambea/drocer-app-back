@@ -7,7 +7,7 @@ import Record from "../../../database/models/Record";
 import { expectedRecordMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
-import { type MongooseRecordStructure } from "../../../types";
+import { type RecordStructure } from "../../../types";
 import User from "../../../database/models/User";
 import { authIdMock, userMock } from "../../../mocks/usersMock";
 import app from "../..";
@@ -47,7 +47,7 @@ describe("Given a GET '/records' endpoint", () => {
         .set("Authorization", "Bearer token")
         .expect(expectedStatusCode);
 
-      const responseBody = response.body as { record: MongooseRecordStructure };
+      const responseBody = response.body as { record: RecordStructure };
 
       expect(responseBody.record).toStrictEqual(expectedRecordMock);
     });

@@ -26,10 +26,6 @@ export interface MongooseUserStructure {
   name: string;
 }
 
-export interface MongooseRecordStructure extends RecordStructure {
-  __v: number;
-}
-
 export interface UserData extends Partial<DecodedIdToken> {
   name?: string;
 }
