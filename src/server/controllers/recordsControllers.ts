@@ -12,6 +12,7 @@ export const getRecordsController = async (
     const records = await Record.find({ user: req.userId }, null, {
       sort: { _id: -1 },
     })
+      .select("-__v")
       .limit(10)
       .exec();
 
@@ -80,7 +81,7 @@ export const getRecordByIdController = async (
   const { id } = req.params;
 
   try {
-    const record = await Record.findById(id);
+    const record = await Record.findById(id).select("-__v");
 
     res.status(200).json({ record });
   } catch (error: unknown) {
@@ -105,7 +106,9 @@ export const modifyRecordController = async (
   try {
     const updatedRecord = await Record.findByIdAndUpdate(id, newRecordData, {
       returnDocument: "after",
-    }).exec();
+    })
+      .select("-__v")
+      .exec();
 
     res.status(200).json({ record: updatedRecord });
   } catch (error: unknown) {

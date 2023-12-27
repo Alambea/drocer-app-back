@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
-import {
-  type MongooseRecordStructure,
-  type RecordStructure,
-} from "../types.js";
+import { type RecordStructure } from "../types.js";
 import { userIdMock } from "./usersMock.js";
 
 export const recordIdMock: string = new mongoose.Types.ObjectId().toString();
@@ -54,7 +51,7 @@ export const recordsMock: RecordStructure[] = [
   },
 ];
 
-export const expectedRecordMock: MongooseRecordStructure = {
+export const expectedRecordMock: RecordStructure = {
   _id: expectedRecordIdMock,
   record: "LP1",
   artist: "FKA Twigs",
@@ -66,10 +63,9 @@ export const expectedRecordMock: MongooseRecordStructure = {
   rating: 4,
   releaseDate: 2014,
   user: userIdMock,
-  __v: 0,
 };
 
-export const modifiedRecordMock: MongooseRecordStructure = {
+export const modifiedRecordMock: RecordStructure = {
   _id: expectedRecordIdMock,
   record: "LP1",
   artist: "FKA Twigs",
@@ -81,5 +77,4 @@ export const modifiedRecordMock: MongooseRecordStructure = {
   rating: 4,
   releaseDate: 2015,
   user: userIdMock,
-  __v: 0,
 };

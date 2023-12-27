@@ -24,7 +24,9 @@ const next: NextFunction = jest.fn();
 describe("Given a modifyRecordController", () => {
   describe(`When it receives a response and a request with an id ${recordIdMock} and a value to update range: 4`, () => {
     Record.findByIdAndUpdate = jest.fn().mockReturnValue({
-      exec: jest.fn().mockResolvedValue(recordsMock[1]),
+      select: jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(recordsMock[1]),
+      }),
     });
 
     test("Then it should call the received response's method status with 200", async () => {
@@ -53,7 +55,9 @@ describe("Given a modifyRecordController", () => {
       );
 
       Record.findByIdAndUpdate = jest.fn().mockReturnValue({
-        exec: jest.fn().mockRejectedValue(expectedError),
+        select: jest.fn().mockReturnValue({
+          exec: jest.fn().mockRejectedValue(expectedError),
+        }),
       });
 
       await modifyRecordController(req as AuthRequest, res as Response, next);
