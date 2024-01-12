@@ -1,22 +1,27 @@
 import { type NextFunction, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import Record from "../../database/models/Record.js";
-import { type AuthRequest } from "../types.js";
+import { type CustomRequest } from "../types.js";
 
 export const getRecordsController = async (
-  req: AuthRequest,
+  req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
+  const { limit, offset } = req.query;
+
   try {
     const records = await Record.find({ user: req.userId }, null, {
       sort: { _id: -1 },
     })
       .select("-__v")
-      .limit(10)
+      .limit(+limit)
+      .skip(+offset)
       .exec();
 
-    res.status(200).json({ records });
+    const count = await Record.find({ user: req.userId }).count();
+
+    res.status(200).json({ count, records });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
@@ -29,7 +34,7 @@ export const getRecordsController = async (
 };
 
 export const deleteByIdController = async (
-  req: AuthRequest,
+  req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -51,7 +56,7 @@ export const deleteByIdController = async (
 };
 
 export const addRecordController = async (
-  req: AuthRequest,
+  req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -74,7 +79,7 @@ export const addRecordController = async (
 };
 
 export const getRecordByIdController = async (
-  req: AuthRequest,
+  req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -96,7 +101,7 @@ export const getRecordByIdController = async (
 };
 
 export const modifyRecordController = async (
-  req: AuthRequest,
+  req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
