@@ -1,16 +1,16 @@
 import { type Response, type NextFunction } from "express";
-import { recordsMock, expectedRecordIdMock } from "../../../mocks/recordsMock";
+import { recordsMock, fkaRecordIdMock } from "../../../mocks/recordsMock";
 import Record from "../../../database/models/Record";
 import { getRecordByIdController } from "../recordsControllers";
-import { type AuthRequest } from "../../types";
+import { type CustomRequest } from "../../types";
 import CustomError from "../../../CustomError/CustomError";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const req: Partial<AuthRequest> = {
-  params: { id: expectedRecordIdMock },
+const req: Partial<CustomRequest> = {
+  params: { id: fkaRecordIdMock },
 };
 const res: Partial<Response> = {
   status: jest.fn().mockReturnThis(),
@@ -19,7 +19,7 @@ const res: Partial<Response> = {
 const next: NextFunction = jest.fn();
 
 describe("Given an getRecordByIdController controller", () => {
-  describe(`When it receives a request with id ${expectedRecordIdMock} and a next function`, () => {
+  describe(`When it receives a request with id ${fkaRecordIdMock} and a next function`, () => {
     Record.findById = jest
       .fn()
       .mockReturnValue({ select: jest.fn().mockReturnValue(recordsMock[0]) });
@@ -27,7 +27,11 @@ describe("Given an getRecordByIdController controller", () => {
     test("Then it should call the received response's method status with 200", async () => {
       const expectedStatusCode = 200;
 
-      await getRecordByIdController(req as AuthRequest, res as Response, next);
+      await getRecordByIdController(
+        req as CustomRequest,
+        res as Response,
+        next,
+      );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
@@ -35,7 +39,11 @@ describe("Given an getRecordByIdController controller", () => {
     test("Then it should call its method json with the record 'LP1'", async () => {
       const expectedRecord = { record: recordsMock[0] };
 
-      await getRecordByIdController(req as AuthRequest, res as Response, next);
+      await getRecordByIdController(
+        req as CustomRequest,
+        res as Response,
+        next,
+      );
 
       expect(res.json).toHaveBeenCalledWith(expectedRecord);
     });
@@ -52,7 +60,11 @@ describe("Given an getRecordByIdController controller", () => {
         select: jest.fn().mockRejectedValue(expectedError),
       });
 
-      await getRecordByIdController(req as AuthRequest, res as Response, next);
+      await getRecordByIdController(
+        req as CustomRequest,
+        res as Response,
+        next,
+      );
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

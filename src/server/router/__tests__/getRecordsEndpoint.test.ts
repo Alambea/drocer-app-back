@@ -34,27 +34,84 @@ admin.auth = jest.fn().mockReturnValue({
 });
 
 describe("Given a GET '/records' endpoint", () => {
-  describe("When it receives a request", () => {
-    test("Then it should respond with a status 200 and records 'LP1' and 'In Rainbows'", async () => {
+  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 0 skip in the query params`, () => {
+    test("Then it should respond with a status 200, the total count of 4 records and the records 'Mezzanine', 'Heliocentric' and 'Third' ", async () => {
       const expectedStatusCode = 200;
-      const recordsPath = paths.records;
+      const offset = "0";
+      const limit = "3";
 
-      await Record.create(recordsMock);
+      const recordsByUser = recordsMock
+        .reverse()
+        .filter((record) => record.user === userMock._id);
+      const expectedUserRecords = recordsByUser.slice(0, +limit);
+      const expectedTotalUserRecords = recordsByUser.length;
+
+      const recordsPath = paths.records;
+      const queryParams = { limit, offset };
+
+      for await (const record of recordsMock) {
+        await Record.create(record);
+      }
+
       await User.create(userMock);
 
       const response = await request(app)
         .get(recordsPath)
         .set("Authorization", "Bearer token")
+        .query(queryParams)
         .expect(expectedStatusCode);
 
-      const responseBody = response.body as { records: RecordStructure[] };
+      const responseBody = response.body as {
+        count: number;
+        records: RecordStructure[];
+      };
 
       responseBody.records.forEach((record, recordPosition) => {
-        expect(responseBody.records[recordPosition]).toHaveProperty(
+        expect(record).toHaveProperty(
           "record",
-          record.record,
+          expectedUserRecords[recordPosition].record,
         );
       });
+      expect(responseBody).toHaveProperty("count", expectedTotalUserRecords);
+    });
+  });
+
+  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 3 skip in the query params`, () => {
+    test("Then it should respond with a status 200, the total count of 4 records and the record 'LP1' ", async () => {
+      const expectedStatusCode = 200;
+      const offset = "3";
+      const limit = "3";
+
+      const recordsByUser = recordsMock.filter(
+        (record) => record.user === userMock._id,
+      );
+      const expectedUserRecords = recordsByUser.slice(
+        +offset,
+        +offset + +limit,
+      );
+      const expectedTotalUserRecords = recordsByUser.length;
+
+      const recordsPath = paths.records;
+      const queryParams = { limit, offset };
+
+      const response = await request(app)
+        .get(recordsPath)
+        .set("Authorization", "Bearer token")
+        .query(queryParams)
+        .expect(expectedStatusCode);
+
+      const responseBody = response.body as {
+        count: number;
+        records: RecordStructure[];
+      };
+
+      responseBody.records.forEach((record, recordPosition) => {
+        expect(record).toHaveProperty(
+          "record",
+          expectedUserRecords[recordPosition].record,
+        );
+      });
+      expect(responseBody).toHaveProperty("count", expectedTotalUserRecords);
     });
   });
 });

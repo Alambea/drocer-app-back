@@ -4,7 +4,7 @@ import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
-import { expectedRecordMock, recordsMock } from "../../../mocks/recordsMock";
+import { fkaRecordMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
 import { type RecordStructure } from "../../../types";
@@ -35,9 +35,10 @@ admin.auth = jest.fn().mockReturnValue({
 
 describe("Given a GET '/records' endpoint", () => {
   describe("When it receives a request", () => {
-    test("Then it should respond with a status 200 and records 'LP1' and 'In Rainbows'", async () => {
+    test("Then it should respond with a status 200 and records 'LP1'", async () => {
       const expectedStatusCode = 200;
-      const recordsPath = `${paths.records}/${recordsMock[0]._id}`;
+      const expectedRecordMock = fkaRecordMock;
+      const recordsPath = `${paths.records}/${expectedRecordMock._id}`;
 
       await Record.create(recordsMock);
       await User.create(userMock);

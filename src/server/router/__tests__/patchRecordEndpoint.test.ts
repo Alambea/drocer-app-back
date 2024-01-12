@@ -4,7 +4,7 @@ import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
-import { expectedRecordMock, recordsMock } from "../../../mocks/recordsMock";
+import { fkaRecordIdMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
 import User from "../../../database/models/User";
@@ -34,10 +34,10 @@ admin.auth = jest.fn().mockReturnValue({
 });
 
 describe("Given a PATCH '/records:id' endpoint", () => {
-  describe(`When it receives a request with the id to update ${expectedRecordMock._id} and a value to update rating: 5`, () => {
+  describe(`When it receives a request with the id to update ${fkaRecordIdMock} and a value to update rating: 5`, () => {
     test("Then it should respond with a status 200 and the record 'LP1' with the rating propery 5", async () => {
       const expectedStatusCode = 200;
-      const path = `${paths.records}/${expectedRecordMock._id}`;
+      const path = `${paths.records}/${fkaRecordIdMock}`;
       const update: Partial<RecordStructure> = { rating: 5 };
 
       await Record.create(recordsMock);
