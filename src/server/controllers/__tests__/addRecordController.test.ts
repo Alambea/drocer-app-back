@@ -1,9 +1,9 @@
 import { type Request, type Response } from "express";
-import { recordPostMock, recordsMock } from "../../../mocks/recordsMock";
+import { massiveRecordPostMock, recordsMock } from "../../../mocks/recordsMock";
 import { addRecordController } from "../recordsControllers";
 import Record from "../../../database/models/Record";
-import { type RecordStructure } from "../../../types";
 import CustomError from "../../../CustomError/CustomError";
+import { type CustomRequest } from "../../types";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -20,36 +20,20 @@ const next = jest.fn();
 
 describe("Given a addRecordController", () => {
   describe("When it receives a response and a request with a record 'Mezzanine'", () => {
-    Record.create = jest.fn().mockReturnValue(recordPostMock);
+    Record.create = jest.fn().mockReturnValue(massiveRecordPostMock);
 
     test("Then it should call the response's method status with 201", async () => {
       const expectedStatusCode = 201;
 
-      await addRecordController(
-        req as Request<
-          Record<string, unknown>,
-          Record<string, unknown>,
-          Partial<RecordStructure>
-        >,
-        res as Response,
-        next,
-      );
+      await addRecordController(req as CustomRequest, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
 
     test("Then it should call the response's method json with a record 'Mezzanine'", async () => {
-      const expectedRecord = { record: recordPostMock };
+      const expectedRecord = { record: massiveRecordPostMock };
 
-      await addRecordController(
-        req as Request<
-          Record<string, unknown>,
-          Record<string, unknown>,
-          Partial<RecordStructure>
-        >,
-        res as Response,
-        next,
-      );
+      await addRecordController(req as CustomRequest, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith(expectedRecord);
     });
@@ -65,15 +49,7 @@ describe("Given a addRecordController", () => {
 
       Record.create = jest.fn().mockRejectedValue(expectedError);
 
-      await addRecordController(
-        req as Request<
-          Record<string, unknown>,
-          Record<string, unknown>,
-          Partial<RecordStructure>
-        >,
-        res as Response,
-        next,
-      );
+      await addRecordController(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

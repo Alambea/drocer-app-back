@@ -1,5 +1,5 @@
 import { type Response, type NextFunction } from "express";
-import { type AuthRequest } from "../../types";
+import { type CustomRequest } from "../../types";
 import admin from "firebase-admin";
 import auth from "./auth";
 import CustomError from "../../../CustomError/CustomError";
@@ -15,7 +15,7 @@ describe("Given an auth middleware", () => {
 
   describe("When it receives a next function and a request with a valid token and a valid user", () => {
     test("Then it should call the received next function", async () => {
-      const req: Partial<AuthRequest> = {
+      const req: Partial<CustomRequest> = {
         header: jest.fn().mockReturnValue("Bearer token"),
       };
       const next: NextFunction = jest.fn();
@@ -27,7 +27,7 @@ describe("Given an auth middleware", () => {
       });
       User.findOne = jest.fn().mockResolvedValue(user);
 
-      await auth(req as AuthRequest, res as Response, next);
+      await auth(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith();
     });
@@ -41,12 +41,12 @@ describe("Given an auth middleware", () => {
         "Invalid Token",
       );
 
-      const req: Partial<AuthRequest> = {
+      const req: Partial<CustomRequest> = {
         header: jest.fn().mockReturnValue(""),
       };
       const next: NextFunction = jest.fn();
 
-      await auth(req as AuthRequest, res as Response, next);
+      await auth(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
@@ -59,21 +59,21 @@ describe("Given an auth middleware", () => {
         401,
         "Invalid Token",
       );
-      const req: Partial<AuthRequest> = {
+      const req: Partial<CustomRequest> = {
         header: jest.fn().mockReturnValue("Bearer token"),
       };
       admin.auth = jest.fn().mockReturnValue({
         verifyIdToken: jest.fn().mockRejectedValue(expectedError),
       });
       const next: NextFunction = jest.fn();
-      await auth(req as AuthRequest, res as Response, next);
+      await auth(req as CustomRequest, res as Response, next);
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 
   describe("When it receives a next function and a request with an valid token but the user doesn't exist", () => {
     test("Then it should call the received next function", async () => {
-      const req: Partial<AuthRequest> = {
+      const req: Partial<CustomRequest> = {
         header: jest.fn().mockReturnValue("Bearer token"),
       };
       const next: NextFunction = jest.fn();
@@ -84,7 +84,7 @@ describe("Given an auth middleware", () => {
       });
       User.findOne = jest.fn().mockResolvedValue(null);
       User.create = jest.fn().mockResolvedValue(user);
-      await auth(req as AuthRequest, res as Response, next);
+      await auth(req as CustomRequest, res as Response, next);
       expect(next).toHaveBeenCalled();
     });
   });

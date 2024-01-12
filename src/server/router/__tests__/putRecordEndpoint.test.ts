@@ -5,8 +5,8 @@ import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
 import {
-  expectedRecordMock,
-  modifiedRecordMock,
+  fkaRecordIdMock,
+  fkaRecordMock,
   recordsMock,
 } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
@@ -38,12 +38,15 @@ admin.auth = jest.fn().mockReturnValue({
 });
 
 describe("Given a PATCH '/records:id' endpoint", () => {
-  describe(`When it receives a request with the id to update ${expectedRecordMock._id} and a value to update rating: 5`, () => {
+  describe(`When it receives a request with the id to update ${fkaRecordIdMock} and a value to update rating: 5`, () => {
     test("Then it should respond with a status 200 and the record 'LP1' with the rating propery 5", async () => {
       const expectedStatusCode = 200;
 
-      const path = `${paths.records}/${expectedRecordMock._id}`;
-      const update: Partial<RecordStructure> = modifiedRecordMock;
+      const path = `${paths.records}/${fkaRecordIdMock}`;
+      const update: Partial<RecordStructure> = {
+        ...fkaRecordMock,
+        genres: "Avant-pop, electronic, art pop R&B, trip hop, cool stuff",
+      };
 
       await Record.create(recordsMock);
       await User.create(userMock);

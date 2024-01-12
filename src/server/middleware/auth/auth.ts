@@ -2,11 +2,11 @@ import { type NextFunction, type Response } from "express";
 import admin from "firebase-admin";
 import CustomError from "../../../CustomError/CustomError.js";
 import { firebaseApp } from "../../../firebase.js";
-import { type AuthRequest } from "../../types.js";
+import { type CustomRequest } from "../../types.js";
 import User from "../../../database/models/User.js";
 import { type UserData, type UserStructure } from "../../../types.js";
 
-const auth = async (req: AuthRequest, _res: Response, next: NextFunction) => {
+const auth = async (req: CustomRequest, _res: Response, next: NextFunction) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
 

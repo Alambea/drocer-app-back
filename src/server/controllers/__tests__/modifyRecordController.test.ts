@@ -1,18 +1,18 @@
 import { type NextFunction, type Response } from "express";
 import Record from "../../../database/models/Record";
-import { type AuthRequest } from "../../types";
+import { type CustomRequest } from "../../types";
 import { modifyRecordController } from "../recordsControllers";
-import { recordIdMock, recordsMock } from "../../../mocks/recordsMock";
+import { radioheadRecordIdMock, recordsMock } from "../../../mocks/recordsMock";
 import CustomError from "../../../CustomError/CustomError";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const req: Partial<AuthRequest> = {
+const req: Partial<CustomRequest> = {
   body: { rating: 5 },
   params: {
-    id: recordIdMock,
+    id: radioheadRecordIdMock,
   },
 };
 const res: Partial<Response> = {
@@ -22,17 +22,16 @@ const res: Partial<Response> = {
 const next: NextFunction = jest.fn();
 
 describe("Given a modifyRecordController", () => {
-  describe(`When it receives a response and a request with an id ${recordIdMock} and a value to update range: 4`, () => {
+  describe(`When it receives a response and a request with an id ${radioheadRecordIdMock} and a value to update range: 4`, () => {
     Record.findByIdAndUpdate = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(recordsMock[1]),
-      }),
+      select: jest.fn().mockReturnThis(),
+      exec: jest.fn().mockResolvedValue(recordsMock[1]),
     });
 
     test("Then it should call the received response's method status with 200", async () => {
       const expectedStatusCode = 200;
 
-      await modifyRecordController(req as AuthRequest, res as Response, next);
+      await modifyRecordController(req as CustomRequest, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
@@ -40,7 +39,7 @@ describe("Given a modifyRecordController", () => {
     test("Then it should call its method json with the record 'In Rainbows' updated", async () => {
       const expectedRecord = { record: recordsMock[1] };
 
-      await modifyRecordController(req as AuthRequest, res as Response, next);
+      await modifyRecordController(req as CustomRequest, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith(expectedRecord);
     });
@@ -55,12 +54,11 @@ describe("Given a modifyRecordController", () => {
       );
 
       Record.findByIdAndUpdate = jest.fn().mockReturnValue({
-        select: jest.fn().mockReturnValue({
-          exec: jest.fn().mockRejectedValue(expectedError),
-        }),
+        select: jest.fn().mockReturnThis(),
+        exec: jest.fn().mockRejectedValue(expectedError),
       });
 
-      await modifyRecordController(req as AuthRequest, res as Response, next);
+      await modifyRecordController(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

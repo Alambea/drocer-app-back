@@ -7,7 +7,7 @@ import app from "../..";
 import connectToDatabase from "../../../database/connectToDatabase";
 import { type RecordStructure } from "../../../types";
 import Record from "../../../database/models/Record";
-import { recordPostMock, recordsMock } from "../../../mocks/recordsMock";
+import { massiveRecordPostMock, recordsMock } from "../../../mocks/recordsMock";
 import { authIdMock, userMock } from "../../../mocks/usersMock";
 import { paths } from "../../paths/paths";
 import User from "../../../database/models/User";
@@ -41,7 +41,7 @@ describe("Given a POST '/records' endpoint", () => {
 
     test("Then it should respond with a status 201 and a record 'Mezzanine'", async () => {
       const expectedStatusCode = 201;
-      const postMockRecord = recordPostMock;
+      const postMockRecord = massiveRecordPostMock;
       const recordsPath = paths.records;
 
       await Record.create(recordsMock);
@@ -50,7 +50,7 @@ describe("Given a POST '/records' endpoint", () => {
       const response = await request(app)
         .post(recordsPath)
         .set("Authorization", "Bearer ")
-        .send(recordPostMock as Omit<RecordStructure, "id">)
+        .send(massiveRecordPostMock as Omit<RecordStructure, "id">)
         .expect(expectedStatusCode);
 
       expect(response.body.record).toHaveProperty(
