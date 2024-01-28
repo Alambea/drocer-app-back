@@ -11,5 +11,6 @@ export interface CustomRequest
   query: {
     limit: string;
     offset: string;
+    query: string;
   };
 }
