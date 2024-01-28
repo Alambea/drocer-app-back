@@ -2,16 +2,29 @@ import { type NextFunction, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import Record from "../../database/models/Record.js";
 import { type CustomRequest } from "../types.js";
+import { type FilterQuery } from "mongoose";
+import { type RecordStructure } from "../../types.js";
 
 export const getRecordsController = async (
   req: CustomRequest,
   res: Response,
   next: NextFunction,
 ) => {
-  const { limit, offset } = req.query;
+  const { limit, offset, query } = req.query;
+
+  const filterOptions: FilterQuery<RecordStructure> = {
+    user: req.userId,
+  };
+
+  if (query) {
+    filterOptions.$or = [
+      { artist: { $regex: query, $options: "i" } },
+      { record: { $regex: query, $options: "i" } },
+    ];
+  }
 
   try {
-    const records = await Record.find({ user: req.userId }, null, {
+    const records = await Record.find(filterOptions, null, {
       sort: { _id: -1 },
     })
       .select("-__v")
@@ -19,7 +32,7 @@ export const getRecordsController = async (
       .skip(+offset)
       .exec();
 
-    const count = await Record.find({ user: req.userId }).count();
+    const count = await Record.find(filterOptions).count();
 
     res.status(200).json({ count, records });
   } catch (error: unknown) {

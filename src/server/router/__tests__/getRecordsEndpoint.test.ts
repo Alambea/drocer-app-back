@@ -4,7 +4,7 @@ import { type DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import admin from "firebase-admin";
 import mongoose from "mongoose";
 import Record from "../../../database/models/Record";
-import { recordsMock } from "../../../mocks/recordsMock";
+import { portisheadRecordMock, recordsMock } from "../../../mocks/recordsMock";
 import { paths } from "../../paths/paths";
 import request from "supertest";
 import { type RecordStructure } from "../../../types";
@@ -34,7 +34,7 @@ admin.auth = jest.fn().mockReturnValue({
 });
 
 describe("Given a GET '/records' endpoint", () => {
-  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 0 skip in the query params`, () => {
+  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 0 offset in the query params`, () => {
     test("Then it should respond with a status 200, the total count of 4 records and the records 'Mezzanine', 'Heliocentric' and 'Third' ", async () => {
       const expectedStatusCode = 200;
       const offset = "0";
@@ -76,7 +76,41 @@ describe("Given a GET '/records' endpoint", () => {
     });
   });
 
-  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 3 skip in the query params`, () => {
+  describe(`When it receives a request by the user ${userMock._id} with a limit of 3, a 0 offset an a query "head" in the query params`, () => {
+    test("Then it should respond with a status 200, the total count of 4 records and the records 'Radiohead' and 'Portishead' ", async () => {
+      const expectedStatusCode = 200;
+      const offset = "0";
+      const limit = "3";
+      const query = "head";
+
+      const expectedUserRecords = [portisheadRecordMock];
+      const expectedTotalUserRecords = 1;
+
+      const recordsPath = paths.records;
+      const queryParams = { limit, offset, query };
+
+      const response = await request(app)
+        .get(recordsPath)
+        .set("Authorization", "Bearer token")
+        .query(queryParams)
+        .expect(expectedStatusCode);
+
+      const responseBody = response.body as {
+        count: number;
+        records: RecordStructure[];
+      };
+
+      responseBody.records.forEach((record, recordPosition) => {
+        expect(record).toHaveProperty(
+          "record",
+          expectedUserRecords[recordPosition].record,
+        );
+      });
+      expect(responseBody).toHaveProperty("count", expectedTotalUserRecords);
+    });
+  });
+
+  describe(`When it receives a request by the user ${userMock._id} with a limit of 3 and a 3 offset in the query params`, () => {
     test("Then it should respond with a status 200, the total count of 4 records and the record 'LP1' ", async () => {
       const expectedStatusCode = 200;
       const offset = "3";
